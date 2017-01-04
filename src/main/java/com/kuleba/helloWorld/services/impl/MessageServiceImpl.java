@@ -18,6 +18,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     public String getDayPart() {
+        logger.info("Receiving a part of a day");
         int hour = new GregorianCalendar().get(Calendar.HOUR_OF_DAY);
         String partOfDay;
         if (hour >= END_OF_NIGHT && hour < END_OF_MORNING) {
@@ -29,16 +30,17 @@ public class MessageServiceImpl implements MessageService {
         } else {
             partOfDay = "night";
         }
-        logger.info("Got a part of a day");
+        logger.info("Receiving a part of a day: " + partOfDay);
         return partOfDay;
     }
 
     public String getMessageFromBundle(Locale locale, String partOfDay) {
+        logger.info("Receiving a message from a bundle");
         String message = null;
         try {
             ResourceBundle resourceBundle = ResourceBundle.getBundle("messages", locale);
             message = resourceBundle.getString(partOfDay);
-            logger.info("Got a message from a bundle");
+            logger.info("Receiving a message from a bundle: " + message);
         } catch (MissingResourceException ex) {
             logger.error("Exception: ", ex);
         }
@@ -46,9 +48,10 @@ public class MessageServiceImpl implements MessageService {
     }
 
     public void printMessage(String message) {
+        logger.info("Printing message to console");
         if (message != null && !message.isEmpty()) {
             System.out.println(message);
-            logger.info("Message was printed to console");
+            logger.info("Printing message to console: " + message);
         } else {
             logger.warn("Nothing to print");
         }
