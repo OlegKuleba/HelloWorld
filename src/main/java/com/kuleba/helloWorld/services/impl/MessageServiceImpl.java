@@ -17,15 +17,14 @@ public class MessageServiceImpl implements MessageService {
     public MessageServiceImpl() {
     }
 
-    public String getDayPart() {
+    public String getDayPart(int hour) {
         logger.info("Receiving a part of a day");
-        int hour = new GregorianCalendar().get(Calendar.HOUR_OF_DAY);
         String partOfDay;
         if (hour >= END_OF_NIGHT && hour < END_OF_MORNING) {
             partOfDay = "morning";
-        } else if (hour < END_OF_DAY) {
+        } else if (hour >= END_OF_MORNING && hour < END_OF_DAY) {
             partOfDay = "day";
-        } else if (hour < END_OF_EVENING) {
+        } else if (hour >= END_OF_DAY && hour < END_OF_EVENING) {
             partOfDay = "evening";
         } else {
             partOfDay = "night";
